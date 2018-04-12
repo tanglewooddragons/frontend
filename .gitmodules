@@ -1,0 +1,3 @@
+[submodule "src/rhazp"]
+	path = src/rhazp
+	url = https://github.com/tanglewooddragons/rhazp
