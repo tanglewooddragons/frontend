@@ -3,11 +3,21 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const state = {}
+const state = {
+	user: {}
+}
 
-const mutations = {}
+const mutations = {
+	login(state, user) {
+		state.user = user
+	}
+}
 
-const actions = {}
+const actions = {
+	loginUser({ commit, state }, user) {
+		commit('login', user)
+	}
+}
 
 const getters = {}
 
