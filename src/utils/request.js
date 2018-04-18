@@ -1,13 +1,24 @@
 export default function(req, { body, method }) {
-	console.log('this works')
-	/*const PORT = '8081'
-	const url = 'http://' + window.location.hostname + ':' + PORT + '/' + req 
-
-	return fetch(url, {
+	return fetch(req, {
 		method,
 		body: JSON.stringify(body),
 		headers: {
 			'content-type': 'application/json'
 		}
-	}).then(res => res.json)*/
+	}).then(res => {
+		if(!res.ok) throw res
+		console.log(res)
+		return res.json()
+	}).catch((err) => {
+		return err.text().then(errorMessage => {
+			if(err.status === 401) {
+				// User is not authorised
+				// Try to refresh token once
+				// api.refreshToken()
+			}
+			else {
+				throw errorMessage
+			}
+		})
+	})
 }

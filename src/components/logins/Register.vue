@@ -1,6 +1,10 @@
 <template lang='pug'>
-form.login-box(@submit="login()")
+form.login-box(@submit="register()")
 	img(src="@/assets/twd.png")
+	.form-row
+		.form-control
+			label Username
+			input(v-model='username', type='text', placeholder='Username')
 	.form-row
 		.form-control
 			label E-mail
@@ -11,25 +15,34 @@ form.login-box(@submit="login()")
 			input(v-model='password', type='password', placeholder='***********')
 	.form-row
 		.form-control
-			button.lg.primary.fill Login
+			label Confirm password
+			input(v-model='confirmPassword', type='password', placeholder='***********')
 	.form-row
-		.links #[router-link(to='/register') Register] | #[router-link(to='/forgot') Recover password]
+		.form-control
+			button.lg.primary.fill Register
+	.form-row
+		.links #[router-link(to='/') Have an accout? Login] | #[router-link(to='/forgot') Recover password]
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import request from '@/utils/request'
 
-import Toast from '@/components/util/Toast.vue'
-
 export default {
 	...mapActions(['loginUser']),
 	methods: {
-		async login() {
-			const { email, password } = this.$data
-			const user = await request('/api/login', { 
+		async register() {
+			const { email, password, confirmPassword, username } = this.$data
+
+			console.log(password, confirmPassword)
+
+			if(password !== confirmPassword || password === '') {
+				return false
+			}
+
+			const user = await request('/api/register', { 
 				body: {
-					email, password
+					email, password, username, passwordRepeat: confirmPassword
 				},
 				method: 'POST'
 			}).then(res => {
@@ -41,8 +54,10 @@ export default {
 	},
 	data() {
 		return { 
+			username: '',
 			email: '',
-			password: ''
+			password: '',
+			confirmPassword: ''
 		}
 	}
 }
