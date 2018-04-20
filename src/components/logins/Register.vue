@@ -29,14 +29,13 @@ import { mapActions } from 'vuex'
 import request from '@/utils/request'
 
 export default {
-	...mapActions(['loginUser']),
 	methods: {
+		...mapActions([ 'loginUser', 'addToast' ]),
 		async register() {
 			const { email, password, confirmPassword, username } = this.$data
 
-			console.log(password, confirmPassword)
-
 			if(password !== confirmPassword || password === '') {
+				this.addToast({ content: "Passwords do not match", type: 'negative' })
 				return false
 			}
 
@@ -49,6 +48,7 @@ export default {
 				console.log(res)
 			}).catch(err => {
 				console.log(err)
+				this.addToast({ content: err, type: 'negative' })
 			})
 		}
 	},

@@ -5,13 +5,8 @@ Vue.use(Vuex)
 
 const state = {
 	user: {},
-	toasts: [
-		{
-			content: 'yes',
-			type: 'positive',
-			id: 0
-		}
-	]
+	toastId: 0,
+	toasts: []
 }
 
 const mutations = {
@@ -19,8 +14,13 @@ const mutations = {
 		state.user = user
 	},
 
+	logout() {
+		state.user = {}
+	},
+
 	addToast(state, { content, type }) {
-		let id = state.toasts.length
+		state.toastId++
+		let id = state.toastId
 		state.toasts.push({
 			content,
 			type: type || 'neutral',
@@ -45,6 +45,10 @@ const actions = {
 		commit('login', user)
 	},
 
+	logout({ commit }) {
+		commit('logout')
+	},
+
 	addToast({ commit }, toast) {
 		commit('addToast', toast)
 	},
@@ -57,6 +61,10 @@ const actions = {
 const getters = { 
 	getToasts(state) {
 		return state.toasts
+	},
+
+	getUser() {
+		return state.user
 	}
 }
 

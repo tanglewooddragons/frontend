@@ -17,14 +17,16 @@ form.login-box(@submit="login()")
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import request from '@/utils/request'
+import { login } from '@/utils/api'
 
 import Toast from '@/components/util/Toast.vue'
 
 export default {
-	...mapActions(['loginUser']),
 	methods: {
+		...mapActions(['loginUser', 'addToast']),
+		...mapGetters(['getUser']),
 		async login() {
 			const { email, password } = this.$data
 			const user = await request('/api/login', { 
@@ -33,10 +35,20 @@ export default {
 				},
 				method: 'POST'
 			}).then(res => {
-				console.log(res)
+				this.addToast({ content: 'Login successful', type: 'positive' })
+				localStorage.setItem('accessToken', res.accessToken)
+				this.loginUser(res)
+				this.$router.push('/')
 			}).catch(err => {
-				console.log(err)
+				console.log('Error:', err)
+				this.addToast({ content: err, type: 'negative' })
 			})
+		}
+	},
+	created() {
+		// user in state
+		if(this.getUser().accessToken) {
+			this.$router.push('/')
 		}
 	},
 	data() {

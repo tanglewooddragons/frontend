@@ -9,6 +9,9 @@ import { mapActions } from 'vuex'
 
 export default {
 	props: ['type', 'id'],
+	created() {
+		setTimeout(this.kill, 6 * 1000)
+	},
 	computed: {
 		classList() {
 			return [ 
@@ -18,10 +21,11 @@ export default {
 		}
 	},
 	methods: {
+		...mapActions(['removeToast']),
 		kill() {
 			this.$data.killed = true
 			setTimeout(() => {
-				this.$store.dispatch('removeToast', this.$props.id)
+				this.removeToast(this.$props.id)
 			}, 300)
 		}
 	},

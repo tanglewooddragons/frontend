@@ -16,20 +16,17 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
 	components: { Toast },
-	...mapActions([ 'removeToast' ]),
 	computed: mapGetters({
 		toasts: 'getToasts'
-	}),
-	events: {
-		kill() {
-			console.log('receev')
-		}
-	},
+	})
 }
 </script>
 
 <style lang='stylus'>
 @import 'rhazp/src/rhazp.styl'
+
+div
+	width 100%
 
 .fade-enter
 	opacity 0
