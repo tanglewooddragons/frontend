@@ -1,0 +1,15 @@
+{
+	"login": {
+		"username": "Username",
+		"email": "E-mail",
+		"password": "Password",
+		"confirmPassword": "Confirm password",
+		"login": "Login",
+		"register": "Register",
+		"recoverPassword": "Recover password",
+
+		"loginSuccessful": "Login successful",
+		"passwordsDontMatch": "Passwords do not match."
+		
+	}
+}

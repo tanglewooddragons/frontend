@@ -1,0 +1,15 @@
+{
+	"login": {
+		"username": "Nazwa użytkownika",
+		"email": "Adres e-mail",
+		"password": "Hasło",
+		"confirmPassword": "Potwierdź hasło",
+		"login": "Login",
+		"register": "Rejestracja",
+		"recoverPassword": "Odzyskaj hasło",
+
+		"loginSuccessful": "Logowanie powiodło się.",
+		"passwordsDontMatch": "Hasła nie są identyczne."
+
+	}
+}

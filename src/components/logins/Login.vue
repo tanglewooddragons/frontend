@@ -1,19 +1,21 @@
 <template lang='pug'>
-form.login-box(@submit="login()")
-	img(src="@/assets/twd.png")
-	.form-row
-		.form-control
-			label E-mail
-			input(v-model='email', type='text', placeholder='username@example.com')
-	.form-row
-		.form-control
-			label Password
-			input(v-model='password', type='password', placeholder='***********')
-	.form-row
-		.form-control
-			button.lg.primary.fill Login
-	.form-row
-		.links #[router-link(to='/register') Register] | #[router-link(to='/forgot') Recover password]
+.login
+	form.login-box(@submit="login()")
+		img(src="@/assets/twd.png")
+		.form-row
+			.form-control
+				label(v-t="'login.email'")
+				input(v-model='email', type='text', placeholder='username@example.com')
+		.form-row
+			.form-control
+				label(v-t="'login.password'")
+				input(v-model='password', type='password', placeholder='***********')
+		.form-row
+			.form-control
+				button.lg.primary.fill(v-t="'login.login'")
+		.form-row
+			.links #[router-link(to='/register') {{ $t('login.register') }}] | #[router-link(to='/forgot') {{ $t('login.recoverPassword') }}]
+	lang-changer
 </template>
 
 <script>
@@ -21,9 +23,12 @@ import { mapActions, mapGetters } from 'vuex'
 import request from '@/utils/request'
 import { login } from '@/utils/api'
 
+import LangChanger from '@/components/util/LangChanger'
+
 import Toast from '@/components/util/Toast.vue'
 
 export default {
+	components: { 'lang-changer': LangChanger },
 	methods: {
 		...mapActions(['loginUser', 'addToast']),
 		...mapGetters(['getUser']),
@@ -35,7 +40,7 @@ export default {
 				},
 				method: 'POST'
 			}).then(res => {
-				this.addToast({ content: 'Login successful', type: 'positive' })
+				this.addToast({ content: this.$t('login.loginSuccessful'), type: 'positive' })
 				localStorage.setItem('accessToken', res.accessToken)
 				this.loginUser(res)
 				this.$router.push('/')
