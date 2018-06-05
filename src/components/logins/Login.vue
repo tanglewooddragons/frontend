@@ -1,7 +1,7 @@
 <template lang='pug'>
 .login
 	form.login-box(@submit="login()")
-		img(src="@/assets/twd.png")
+		img(src="@/assets/twd.png").login-logo
 		.form-row
 			.form-control
 				label(v-t="'login.email'")
@@ -13,8 +13,10 @@
 		.form-row
 			.form-control
 				button.lg.primary.fill(v-t="'login.login'")
-		.form-row
-			.links #[router-link(to='/register') {{ $t('login.register') }}] | #[router-link(to='/forgot') {{ $t('login.recoverPassword') }}]
+		.form-row.login-links
+			router-link(to='/register') {{ $t('login.register') }}
+			router-link(to='/forgot') {{ $t('login.recoverPassword') }}
+
 	lang-changer
 </template>
 
@@ -65,14 +67,17 @@ export default {
 }
 </script>
 
-<style lang='stylus' scoped>
+<style lang='stylus'>
 @import '../../rhazp/src/variables.styl'
 
-img
+img.login-logo
 	max-width 100%
 
-.links
+.login-links
 	width 100%
 	text-align center
-	font-size $font-size-sm
+	display flex
+	justify-content space-around
+	font-weight 500
+
 </style>

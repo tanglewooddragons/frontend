@@ -27,7 +27,7 @@ export default function(req, { body, method, token }) {
 			if(err.status === 401) {
 				// User is not authorised
 				// Try to refresh token once
-				api.refreshToken()
+				api.refreshAccessToken()
 			}
 			else {
 				throw errorMessage

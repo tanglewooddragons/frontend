@@ -13,7 +13,7 @@ export async function login(credentials) {
 }
 
 export async function getUser(id = '') {
-	return request('/user/' + id, {
+	return await request('/user/' + id, {
 		token: this.accessToken
 	})
 }

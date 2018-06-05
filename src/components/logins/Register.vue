@@ -21,8 +21,9 @@
 		.form-row
 			.form-control
 				button.lg.primary.fill(v-t="'login.register'")
-		.form-row
-			.links #[router-link(to='/') {{ $t('login.login') }}] | #[router-link(to='/forgot') {{ $t('login.recoverPassword') }}]
+		.form-row.login-links
+			router-link(to='/') {{ $t('login.login') }}
+			router-link(to='/forgot') {{ $t('login.recoverPassword') }}
 	lang-changer
 </template>
 

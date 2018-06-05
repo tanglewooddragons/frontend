@@ -5,6 +5,7 @@ import Login from '@/components/logins/Login'
 import Register from '@/components/logins/Register'
 
 import Index from '@/components/main/Index'
+import Profile from '@/components/main/sections/Profile'
 
 Vue.use(Router)
 
@@ -25,8 +26,23 @@ export default new Router({
 		{
 			path: '/',
 			components: {
-				default: Index
-			}
-		}
+				default: Index,
+				logged: undefined
+			},
+			children: [
+				{
+					path: 'profile/:id',
+					components: {
+						logged: Profile
+					}
+				},
+				{
+					path: 'profile',
+					components: {
+						logged: Profile
+					}
+				}
+			]
+		},
 	]
 })
